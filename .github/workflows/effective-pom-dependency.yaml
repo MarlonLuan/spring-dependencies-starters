@@ -1,0 +1,55 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 * * * *'
+
+env:
+  FORCE_COLOR: 2
+
+jobs:
+  effective-pom-dependency:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java:
+          - 21
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: temurin
+
+      - run: mvn --version
+
+      - run: ./mvnw --version
+
+      - run: |
+          # ./mvnw help:effective-pom -Doutput=effective-pom.xml -q
+          ./mvnw -f fulldependency/pom.xml help:effective-pom -Doutput=effective-pom.xml -q
+          ./mvnw -f nodependency/pom.xml help:effective-pom -Doutput=effective-pom.xml -q
+          # ./mvnw -f noparent/pom.xml help:effective-pom -Doutput=effective-pom.xml -q
+          # ./mvnw -f milestone/pom.xml help:effective-pom -Doutput=effective-pom.xml -q
+
+      - run: |
+          # ./mvnw dependency:tree -DoutputFile=dependency-tree.txt -q
+          ./mvnw -f fulldependency/pom.xml dependency:tree -DoutputFile=dependency-tree.txt -q
+          ./mvnw -f nodependency/pom.xml dependency:tree -DoutputFile=dependency-tree.txt -q
+          # ./mvnw -f noparent/pom.xml dependency:tree -DoutputFile=dependency-tree.txt -q
+          # ./mvnw -f milestone/pom.xml dependency:tree -DoutputFile=dependency-tree.txt -q
+
+      - run: |
+          # ./mvnw dependency:resolve-plugins -DoutputFile=resolve-plugins.txt -q
+          ./mvnw -f fulldependency/pom.xml dependency:resolve-plugins -DoutputFile=resolve-plugins.txt -q
+          ./mvnw -f nodependency/pom.xml dependency:resolve-plugins -DoutputFile=resolve-plugins.txt -q
+          # ./mvnw -f noparent/pom.xml dependency:resolve-plugins -DoutputFile=resolve-plugins.txt -q
+          # ./mvnw -f milestone/pom.xml dependency:resolve-plugins -DoutputFile=resolve-plugins.txt -q
+
+      - uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7
+        with:
+          title: effective-pom-dependency
+          body:
+          commit-message: effective-pom-dependency
+          branch: effective-pom-dependency

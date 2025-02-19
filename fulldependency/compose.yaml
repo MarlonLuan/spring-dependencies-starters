@@ -1,31 +1,31 @@
 services:
   activemq:
-    image: 'apache/activemq-classic:latest'
+    image: 'apache/activemq-classic:latest@sha256:059d40f12146086e127eea23609ecb0610e4d7367a7a4e93bfdb126f21beb90a'
     ports:
       - '61616'
   artemis:
-    image: 'apache/activemq-artemis:latest'
+    image: 'apache/activemq-artemis:latest@sha256:1a0171c622a43ba10616225fdd9bf9aace4c7248d3c5598d3a0ba998cb73db3d'
     ports:
       - '61616'
   azurite:
-    image: 'mcr.microsoft.com/azure-storage/azurite:latest'
+    image: 'mcr.microsoft.com/azure-storage/azurite:latest@sha256:2628ee10a72833cc344b9d194cd8b245543892b307d16cf26a2cf55a15b816af'
     ports:
       - '10000'
       - '10001'
       - '10002'
   cassandra:
-    image: 'cassandra:latest'
+    image: 'cassandra:latest@sha256:70b40a2025d450f7865c5ec6f1ebea13108166f81fe41462069690cb4d9690f2'
     environment:
       - 'CASSANDRA_DC=dc1'
       - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
     ports:
       - '9042'
   chroma:
-    image: 'chromadb/chroma:latest'
+    image: 'chromadb/chroma:latest@sha256:e0e78dc7609a599b63c99753442c7d01b1d3d369ce0e3bf3e0540536fec4fa7a'
     ports:
       - '8000'
   elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.10'
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.10@sha256:bc7ba1dc5067c5b3907b82c667a374cc987cd813501e1378ec74ccd1c577f787'
     environment:
       - 'ELASTIC_PASSWORD=secret'
       - 'discovery.type=single-node'
@@ -34,7 +34,7 @@ services:
       - '9200'
       - '9300'
   mariadb:
-    image: 'mariadb:latest'
+    image: 'mariadb:latest@sha256:310d29fbb58169dcddb384b0ff138edb081e2773d6e2eceb976b3668089f2f84'
     environment:
       - 'MARIADB_DATABASE=mydatabase'
       - 'MARIADB_PASSWORD=secret'
@@ -43,7 +43,7 @@ services:
     ports:
       - '3306'
   mongodb:
-    image: 'mongo:latest'
+    image: 'mongo:latest@sha256:aaad67f2dca93148e5343c03210bcfc89a0107516a4756bfa018acd6579e5b18'
     environment:
       - 'MONGO_INITDB_DATABASE=mydatabase'
       - 'MONGO_INITDB_ROOT_PASSWORD=secret'
@@ -51,11 +51,11 @@ services:
     ports:
       - '27017'
   mongodbatlas:
-    image: 'mongodb/mongodb-atlas-local:latest'
+    image: 'mongodb/mongodb-atlas-local:latest@sha256:58e7fcb1b3327c61911f164b5febb24383cd22b7633051fee353ea19ae59787c'
     ports:
       - '27017'
   mysql:
-    image: 'mysql:latest'
+    image: 'mysql:latest@sha256:146682692a3aa409eae7b7dc6a30f637c6cb49b6ca901c2cd160becc81127d3b'
     environment:
       - 'MYSQL_DATABASE=mydatabase'
       - 'MYSQL_PASSWORD=secret'
@@ -64,23 +64,23 @@ services:
     ports:
       - '3306'
   neo4j:
-    image: 'neo4j:latest'
+    image: 'neo4j:latest@sha256:23c104742156ddfe3f25bb301fa6d36e399eff923669c9b1ab0354dd2bc8d56b'
     environment:
       - 'NEO4J_AUTH=neo4j/notverysecret'
     ports:
       - '7687'
   ollama:
-    image: 'ollama/ollama:latest'
+    image: 'ollama/ollama:latest@sha256:82956f40bb1f307c77f7a8c3ed91c7a37e072ed757ff143e34210a7b991b9480'
     ports:
       - '11434'
   oracle:
-    image: 'gvenzl/oracle-free:latest'
+    image: 'gvenzl/oracle-free:latest@sha256:dbdc1f1b0ad966819253a8188ede4040e3aa40455a1e3688d56f0a0d804f7129'
     environment:
       - 'ORACLE_PASSWORD=secret'
     ports:
       - '1521'
   pgvector:
-    image: 'pgvector/pgvector:pg16'
+    image: 'pgvector/pgvector:pg16@sha256:67470e92387d63ab4513f376fb8ee678ae434475e9e39d05e96e6dc78e030292'
     environment:
       - 'POSTGRES_DB=mydatabase'
       - 'POSTGRES_PASSWORD=secret'
@@ -90,30 +90,30 @@ services:
     ports:
       - '5432'
   pulsar:
-    image: 'apachepulsar/pulsar:latest'
+    image: 'apachepulsar/pulsar:latest@sha256:8c0729055f56a8e30dec5d3cc7f85bd1aea9485858e95da57b96b9e43833b910'
     ports:
       - '6650'
       - '8080'
     command: 'bin/pulsar standalone'
   qdrant:
-    image: 'qdrant/qdrant:latest'
+    image: 'qdrant/qdrant:latest@sha256:318c11b72aaab96b36e9662ad244de3cabd0653a1b942d4e8191f18296c81af0'
     ports:
       - '6334'
   rabbitmq:
-    image: 'rabbitmq:latest'
+    image: 'rabbitmq:latest@sha256:052cf7d4105f5f24fd7a762c74a5140fd8731cffe28b9d949784391158b09d27'
     environment:
       - 'RABBITMQ_DEFAULT_PASS=secret'
       - 'RABBITMQ_DEFAULT_USER=myuser'
     ports:
       - '5672'
   redis:
-    image: 'redis/redis-stack:latest'
+    image: 'redis/redis-stack:latest@sha256:e54200e2d835af364b2e64074ad5b9c32d102ea750eaa3f88d2d4b980d346923'
     labels:
       - "org.springframework.boot.service-connection=redis"
     ports:
       - '6379'
   sqlserver:
-    image: 'mcr.microsoft.com/mssql/server:latest'
+    image: 'mcr.microsoft.com/mssql/server:latest@sha256:d252932ef839c24c61c1139cc98f69c85ca774fa7c6bfaaa0015b7eb02b9dc87'
     environment:
       - 'ACCEPT_EULA=yes'
       - 'MSSQL_PID=express'
@@ -121,10 +121,10 @@ services:
     ports:
       - '1433'
   weaviate:
-    image: 'semitechnologies/weaviate:latest'
+    image: 'semitechnologies/weaviate:latest@sha256:4d2eceef34882b5e573ee77ef0e92423838583676f1cf0f054c186b36444b132'
     ports:
       - '8080'
   zipkin:
-    image: 'openzipkin/zipkin:latest'
+    image: 'openzipkin/zipkin:latest@sha256:d9316e7ff757a256e5dd22ff97547e722649811bc5bfa428ecae7005045d5dbe'
     ports:
       - '9411'
